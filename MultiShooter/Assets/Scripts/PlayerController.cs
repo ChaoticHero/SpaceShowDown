@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviourPun
     private int curAttackerId;
     public PlayerWeapon weapon;
 
+
     [PunRPC]
     public void Initialize(Player player)
     {
@@ -49,7 +50,10 @@ public class PlayerController : MonoBehaviourPun
             GameUI.instance.Initialize(this);
         }
     }
-
+    void start()
+    {
+        
+    }
     void Update()
     {
         if (!photonView.IsMine || dead)
@@ -62,7 +66,11 @@ public class PlayerController : MonoBehaviourPun
         if (Input.GetKeyDown(KeyCode.Space))
             TryJump();
         if (Input.GetMouseButtonDown(0))
+        {
             weapon.TryShoot();
+            var audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
+        }
     }
 
     void Move()
